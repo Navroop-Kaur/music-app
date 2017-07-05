@@ -43,21 +43,6 @@ function updateCurrentTime() {
 }
 
 
-function addSongNameClickEvent(songName,position) {
-    var id = '#song' + position;
-$(id).click(function() {
-var audio = document.querySelector('audio');
-var currentSong = audio.src;
-if(currentSong.search(songName) != -1)
-{
-toggleSong();
-}
-else {
-audio.src = songName;
-toggleSong();
-}
-});
-}
 
     $('.welcome-screen button').on('click', function() {  //this is a welcome screen function which works on click
         var name = $('#name-input').val();
@@ -80,116 +65,121 @@ toggleSong();
             });
 
 
+
+function changeCurrentSongDetails(songObj) {
+    $('.current-song-image').attr('src','img/' + songObj.image)
+    $('.current-song-name').text(songObj.name)
+    $('.current-song-album').text(songObj.album)
+}
+
+
+
+//     var songList = ['Phir Bhi Tum Ko Chahugi','Cheap Thrills',
+// 'Shape Of You', 'Humsafar', 'The Black Magic']; 
+// var artistList = ['Shardha KApoor', 'Sia', 'Ed Sheeran', 'Akhil Sachdeva', 'Little Mix']; 
+// var albumList = ['Half Girlfriend','This Is Action','Divide','Badrinath ki Dulhania', 'Get Weird'];
+// var durationList = ['3:53','3:46','3:56','4:28','3:45'];
+
+var songs = [{
+        'name': 'Phir Bhi Tum Ko Chahugi',
+        'artist': 'Shardha Kapoor',
+        'album': 'Half Girlfriend',
+        'duration': '3:53',
+       'fileName': 'song1.mp3',
+       'image': 'song1.jpg'
+    },
+     {
+        'name': 'Cheap Thrills',
+        'artist': 'Sia',
+        'album': 'This Is Action',
+        'duration': '3:46',
+        'fileName': 'song2.mp3',
+        'image': 'song2.jpg'
+    },
+      {
+        'name': 'Shape Of You',
+        'artist': 'Ed Sheeran',
+        'album': 'Divide',
+        'duration': '3:56',
+        'fileName': 'song3.mp3',
+        'image': 'song3.jpg'
+    },
+      {
+        'name': 'Humsafar',
+        'artist': 'Akhil Sachdeva',
+        'album': 'Badrinath Ki Dulhania',
+        'duration': '4:28',
+        'fileName': 'song4.mp3',
+        'image': 'song4.jpg'
+    },
+     {
+        'name': 'Black Magic',
+        'artist': 'Little Mix',
+        'album': 'Get Weird',
+        'duration': '3:45',
+        'fileName': 'song5.mp3',
+        'image': 'song5.jpg'
+    }]
+
+    var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3','song5.mp3'];
+
 window.onload = function() {
-   $('#song1 .song-name').text(songList[0]);
-$('#song2 .song-name').text(songList[1]);
-$('#song3 .song-name').text(songList[2]);
-$('#song4 .song-name').text(songList[3]);
-$('#song5 .song-name').text(songList[4]);
+
+   changeCurrentSongDetails(songs[0]);
+
+
+   for(var i =0; i < songs.length;i++) {
+        var obj = songs[i];
+        var name = '#song' + (i+1);
+        var song = $(name);
+        song.find('.song-name').text(obj.name);
+        song.find('.song-artist').text(obj.artist);
+        song.find('.song-album').text(obj.album);
+        song.find('.song-length').text(obj.duration);
+        addSongNameClickEvent(obj,i)
+       }
+
 updateCurrentTime();
 setInterval(function() {
 updateCurrentTime();
 },1000);
 }
-var songList = ['Phir Bhi Tum Ko Chahugi','Cheap Thrills',
-'Shape Of You', 'Humsafar', 'The Black Magic']; 
-// $('#song1 .song-name').text(songList[0]);
-//     $('#song2 .song-name').text(songList[1]);
-//     $('#song3 .song-name').text(songList[2]);
-//     $('#song4 .song-name').text(songList[3]);
-//     $('#song5 .song-name').text(songList[4]);
 
 
 
-var artistList = ['Shardha KApoor', 'Sia', 'Ed Sheeran', 'Akhil Sachdeva', 'Little Mix']; 
-// $('#song1 .song-artist').text(artistList[0]);
-//     $('#song2 .song-artist').text(artistList[1]);
-//     $('#song3 .song-artist').text(artistList[2]);
-//     $('#song4 .song-artist').text(artistList[3]);
-//     $('#song5 .song-artist').text(artistList[4]);
-
-for(var i =0; i < songList.length;i++) {
-        var name = '#song' + (i+1);
-        var song = $(name);
-        song.find('.song-name').text(songList[i]);
-        song.find('.song-artist').text(artistList[i]);
-    }
-    var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3','song5.mp3'];
-// addSongNameClickEvent(fileNames[0],1);
-// addSongNameClickEvent(fileNames[1],2);
-// addSongNameClickEvent(fileNames[2],3);
-// addSongNameClickEvent(fileNames[3],4);
-// addSongNameClickEvent(fileNames[4],5);
 for (var i = 0; i < fileNames.length ; i++) {
     addSongNameClickEvent(fileNames[i],i+1)
 }  
 
 
-// $('#song1').click(function() {
-// var audio = document.querySelector('audio');
-// var currentSong = audio.src;
-// if(currentSong.search(fileNames[0]) != -1)
-// {
-// toggleSong();
-// }
-// else {
-// audio.src = fileNames[0];
-// toggleSong();
-// }
-// });
+function addSongNameClickEvent(songObj,position) {
+    var songName = songObj.fileName; // New Variable
+    var id = '#song' + (position+1);
+$(id).click(function() {
+var audio = document.querySelector('audio');
+var currentSong = audio.src;
+if(currentSong.search(songName) != -1)
+{
+toggleSong();
+}
+else {
+audio.src = songName;
+toggleSong();
+changeCurrentSongDetails(songObj); // Function Call
+}
+});
+}
 
-// $('#song2').click(function() {
-// var audio = document.querySelector('audio');
-// var currentSong = audio.src;
-// if(currentSong.search(fileNames[1]) != -1)
-// {
-// toggleSong();
-// }
-// else {
-// audio.src = fileNames[1];
-// toggleSong();
-// }
-// });
 
-// $('#song3').click(function() {
-// var audio = document.querySelector('audio');
-// var currentSong = audio.src;
-// if(currentSong.search(fileNames[2]) != -1)
-// {
-// toggleSong();
-// }
-// else {
-// audio.src = fileNames[2];
-// toggleSong();
-// }
-// });
-
-// $('#song4').click(function() {
-// var audio = document.querySelector('audio');
-// var currentSong = audio.src;
-// if(currentSong.search(fileNames[3]) != -1)
-// {
-// toggleSong();
-// }
-// else {
-// audio.src = fileNames[3];
-// toggleSong();
-// }
-// });
-// $('#song5').click(function() {
-// var audio = document.querySelector('audio');
-// var currentSong = audio.src;
-// if(currentSong.search(fileNames[4]) != -1)
-// {
-// toggleSong();
-// }
-// else {
-// audio.src = fileNames[4];
-// toggleSong();
-// }
-// });
+// for(var i =0; i < songList.length;i++) {
+//         var name = '#song' + (i+1);
+//         var song = $(name);
+//         song.find('.song-name').text(songList[i]);
+//         song.find('.song-artist').text(artistList[i]);
+//         song.find('.song-album').text(albumList[i]); // Added
+//         song.find('.song-length').text(durationList[i]); // Added
+//     }
 
 
 
 
-    
