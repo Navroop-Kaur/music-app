@@ -59,7 +59,8 @@ function updateCurrentTime() {
         toggleSong();//fuction to play and pause song is used
     });
     $('body').on('keypress', function(event) { //song will be played or paused by pressing a key on keyboard
-                if (event.keyCode == 32) { //key 32is spacebar
+                var target = event.target;
+                if (event.keyCode == 32 && target.tagName !='INPUT') { //key 32is spacebar and when spacebar is not prssed in input tag
                    toggleSong();// function to play and pause song
                 }
             });
@@ -124,6 +125,10 @@ var songs = [{
     var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3','song5.mp3'];
 
 window.onload = function() {
+
+   $('#songs').DataTable({
+        paging: false
+    });
 
    changeCurrentSongDetails(songs[0]);
 
