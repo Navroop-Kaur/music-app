@@ -23,9 +23,9 @@
             <header>
                 <div class="right floated user-name"> </div>
             </header>
-            <section class="content"><!--this section includes all the songs and other related content-->
-                <audio src=""></audio>
-                <table id="songs">
+            <section class="content hidden"><!--this section includes all the songs and other related content-->
+                <audio src="song1.mp3"></audio>
+                <table id="songs"><!-- table are created to make the datatables functions-->
     <thead class="list-headers">
             <tr><td> Title </td>
             <td> Artist </td>
@@ -33,7 +33,7 @@
             <td> Duration </td>
         </tr></thead>
         <!-- <div class="song-list"> -->
-            <tbody><tr class="song" id="song1">
+            <tbody><tr class="song" id="song1"><!--songs are placed in table body-->
                 <td class="song-name"></td>
                 <td class="song-artist"></td>
                 <td class="song-album"></td>
@@ -64,20 +64,31 @@
                 <td class="song-length"></td>
             </tr>
         <!-- </div> -->
-    </tbody></table>
+    </tbody></table><!--table and table body closed-->
 
 <div class="current-song-wrapper">
-        <img src="" class="current-song-image">
+        <img src="" class="current-song-image"><!--shows image of the current song which is being played...it changes when song is changed-->
         <div>
-        <p class="current-song-name"></p>
-        <p class="current-song-album"></p>
+        <p class="current-song-name"></p><!--showing current songs name...it changes when song is changed-->
+        <p class="current-song-album"></p><!--showing current songs album name and changes when song changes-->
         </div>
         </div>
+            </section>
+            <section class="audio-effects" style="display:inline;"> <!--audio effects section-->
+                <span class="box"> Chorous </span>
+                <span class="box"> Waves </span>
+                <span class="box"> Bars And Waves </span>
+                <span class="box"> Illuminator </span>
             </section>
             <footer>
                 <div class="controls">
                     <div class="player-buttons"><!--this includes the play icon which is used to play and pause the song-->
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                        <i class="fa fa-random clickable disabled" aria-hidden="true"></i>
+                        <i class="fa fa-step-backward clickable" aria-hidden="true"></i>
                         <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
+                        <i class="fa fa-step-forward clickable" aria-hidden="true"></i>
+                        <i class="fa fa-repeat disabled clickable" aria-hidden="true"></i>
                     </div>
                     <div class="progress-wrapper">
                         <span class="time-elapsed"> </span>

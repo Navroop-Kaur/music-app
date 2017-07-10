@@ -1,3 +1,11 @@
+  var currentSongNumber = 1;
+var willLoop = 0;
+var willShuffle = 0; 
+var tracker = $('.tracker');
+
+
+
+
     //a funtion to play and pause song is created...here class are added and removed when a song is played or pause
     function toggleSong() { 
 var song = document.querySelector('audio');
@@ -12,7 +20,7 @@ $('.play-icon').removeClass('fa-pause').addClass('fa-play');
 song.pause();
 }
 } 
-function fancyTimeFormat(time)
+function fancyTimeFormat(time) //function used to make time format as min:sec
 {   
     // Hours, minutes and seconds
     var hrs = ~~(time / 3600);
@@ -31,12 +39,12 @@ function fancyTimeFormat(time)
     return ret;
 }
 
-<!--current time functio-->
-function updateCurrentTime() {
+
+function updateCurrentTime() { //function used to dispaly current song img and details
     var song = document.querySelector('audio');
-    var currentTime = Math.floor(song.currentTime);
+    var currentTime = Math.floor(song.currentTime);//showing current time of song using function fancyTimeFormat
     currentTime = fancyTimeFormat(currentTime);
-    var duration = Math.floor(song.duration);
+    var duration = Math.floor(song.duration);//total duration of time of song using function fancyTimeFormat
     duration = fancyTimeFormat(duration)
     $('.time-elapsed').text(currentTime);
     $('.song-duration').text(duration);
@@ -66,7 +74,7 @@ function updateCurrentTime() {
             });
 
 
-
+ 
 function changeCurrentSongDetails(songObj) {
     $('.current-song-image').attr('src','img/' + songObj.image)
     $('.current-song-name').text(songObj.name)
@@ -81,7 +89,7 @@ function changeCurrentSongDetails(songObj) {
 // var albumList = ['Half Girlfriend','This Is Action','Divide','Badrinath ki Dulhania', 'Get Weird'];
 // var durationList = ['3:53','3:46','3:56','4:28','3:45'];
 
-var songs = [{
+var songs = [{   //using arrays to dispaly all the song details
         'name': 'Phir Bhi Tum Ko Chahugi',
         'artist': 'Shardha Kapoor',
         'album': 'Half Girlfriend',
@@ -124,19 +132,100 @@ var songs = [{
 
     var fileNames = ['song1.mp3','song2.mp3','song3.mp3','song4.mp3','song5.mp3'];
 
-window.onload = function() {
 
-   $('#songs').DataTable({
+    $('.fa-repeat').on('click',function() { //loop function
+    $('.fa-repeat').toggleClass('disabled')
+    willLoop = 1 - willLoop;
+});
+
+$('.fa-random').on('click',function() { //shuffle function
+    $('.fa-random').toggleClass('disabled')
+    willShuffle = 1 - willShuffle;
+});
+
+function timeJump() {   //play next song
+    var song = document.querySelector('audio')
+    song.currentTime = song.duration - 6;
+}
+
+$('audio').on('ended',function() { //function to shuffle songs
+    var audio = document.querySelector('audio');
+    if (willShuffle == 1) {
+        var nextSongNumber = randomExcluded(1,5,currentSongNumber); // Calling our function from Stackoverflow
+        var nextSongObj = songs[nextSongNumber-1];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber = nextSongNumber;
+    }
+    else if(currentSongNumber < 5) {
+        var nextSongObj = songs[currentSongNumber];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber = currentSongNumber + 1;
+    }
+    else if(willLoop == 1) {
+        var nextSongObj = songs[0];
+        audio.src = nextSongObj.fileName;
+        toggleSong();
+        changeCurrentSongDetails(nextSongObj);
+        currentSongNumber =  1;
+    }
+    else {
+        $('.play-icon').removeClass('fa-pause').addClass('fa-play');
+        audio.currentTime = 0;
+    }
+})
+
+function randomExcluded(min, max, excluded) { //function to select songs randomly
+    var n = Math.floor(Math.random() * (max-min) + min);
+    if (n >= excluded) n++;
+    return n;
+}
+
+// forward click
+$('.fwd').click(function (e) {
+e.preventDefault();
+stopAudio();
+var next = $('.songs').next();
+if (next.length == 0) {
+next = $('.song'== currentsong);
+}
+initAudio(next);
+});
+// rewind click
+$('.rew').click(function (e) {
+e.preventDefault();
+stopAudio();
+var prev = $('.songs').prev();
+if (prev.length == 0) {
+prev = $('.songss'-1);
+}
+initAudio(prev);
+});
+
+
+
+
+
+
+
+
+
+window.onload = function() { //functions which work on on load of screen or page
+
+   $('#songs').DataTable({ //turning off paging components of datatables
         paging: false
     });
 
-   changeCurrentSongDetails(songs[0]);
+   changeCurrentSongDetails(songs[0]);//passing value of song i currentsong details function
 
 
    for(var i =0; i < songs.length;i++) {
         var obj = songs[i];
         var name = '#song' + (i+1);
-        var song = $(name);
+        var song = $(name);    //getting details of all the attributes of song
         song.find('.song-name').text(obj.name);
         song.find('.song-artist').text(obj.artist);
         song.find('.song-album').text(obj.album);
@@ -157,13 +246,13 @@ for (var i = 0; i < fileNames.length ; i++) {
 }  
 
 
-function addSongNameClickEvent(songObj,position) {
+function addSongNameClickEvent(songObj,position) {  //function which is used to get the name and position of song and playing and pausing song after checking condition
     var songName = songObj.fileName; // New Variable
     var id = '#song' + (position+1);
 $(id).click(function() {
 var audio = document.querySelector('audio');
 var currentSong = audio.src;
-if(currentSong.search(songName) != -1)
+if(currentSong.search(songName) != -1) 
 {
 toggleSong();
 }
