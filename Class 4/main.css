@@ -220,10 +220,10 @@ table.dataTable tbody tr {
     flex-direction: column;
     color: white;
     background-color: black;
-    padding-top: 200px;
+    padding-top: 300px;
     padding-left:250px;
 }
-.box{
+.a{
     border:2px solid white;
     height:25%;
     width:20%;
@@ -231,4 +231,6 @@ table.dataTable tbody tr {
     padding:20px;
     margin: 50px;
     color: white;
+    display: inline!important;
+    box-shadow: blue;
 }

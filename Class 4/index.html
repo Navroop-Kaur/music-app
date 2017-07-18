@@ -23,6 +23,18 @@
             <header>
                 <div class="right floated user-name"> </div>
             </header>
+
+
+
+            <section class="audio-effects" style="display:inline; padding-left: 250px; padding-top: 225px"> <!--audio effects section-->
+               <div class="Chorua a">Chorus</div>
+               <div class="Wahwah a b">Wahwah</div>
+               <div class="Overdrive a c">Overdrive</div>
+               <div class="Tremolo a d">Tremolo</div>
+            </section>
+
+
+
             <section class="content hidden"><!--this section includes all the songs and other related content-->
                 <audio src="song1.mp3"></audio>
                 <table id="songs"><!-- table are created to make the datatables functions-->
@@ -74,12 +86,7 @@
         </div>
         </div>
             </section>
-            <section class="audio-effects" style="display:inline;"> <!--audio effects section-->
-                <span class="box"> Chorous </span>
-                <span class="box"> Waves </span>
-                <span class="box"> Bars And Waves </span>
-                <span class="box"> Illuminator </span>
-            </section>
+            
             <footer>
                 <div class="controls">
                     <div class="player-buttons"><!--this includes the play icon which is used to play and pause the song-->
@@ -105,6 +112,8 @@
     </script>
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js">
     </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/tunajs/0.4.4/tuna-min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="affects.js"></script>
     <script src="main.js"></script>
     </body>
 </html>
