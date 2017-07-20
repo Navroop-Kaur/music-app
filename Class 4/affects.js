@@ -1,4 +1,3 @@
-var delay;
 var chorus;
 var wahwah;
 var overdrive;
@@ -16,13 +15,13 @@ function tunaDemo(){
 		excursionOctaves : 1, //1 to 6
 		sweep : 0.6 ,//0 to 1
 		resonance : 70, //1 to 100
-		sensitivity :0.5, //-1 to 1 
+		sensitivity :0.5, //-1 to 1
 		bypass : 1
 	});
 
 
 
-	chorus = new tuna.Delay({
+	chorus = new tuna.Chorus({
 		feedback: 0.78,
 		delayTime:70, //this will create a short "stop back" delay
 		wetLevel:0.9,
@@ -33,7 +32,7 @@ function tunaDemo(){
 
 
 
-	overdrive = new tuna.Tremolo({
+	overdrive = new tuna.Overdrive({
 		intensity: 1, //0 to 1
 		rate: 8, //0.001 to 8
 		stereoPhase:140, //0 to 180
@@ -78,8 +77,9 @@ var d = document.querySelector(".d");
 
 var x = 0;
 var y = 0;
+
+
 a.addEventListener("click",function(e){
-	$(this).toggleClass("boredr");
 
 	if(chorus.bypass){
 		chorus.bypass = false;
@@ -93,41 +93,40 @@ a.addEventListener("click",function(e){
 
 
 b.addEventListener("click",function(e){
-	$(this).toggleClass("boredr");
 
 	if(wahwah.bypass){
 		wahwah.bypass = 0;
+
+
+
 		}
 	else{
 		wahwah.bypass = 1;
-		
+
+
 	}
 });
 
 
 c.addEventListener("click",function(e){
-	$(this).toggleClass("boredr");
 
 	if(overdrive.bypass){
 		wahwah.bypass = 0;
 		}
 	else{
 		wahwah.bypass = 1;
-		
+
 	}
 });
 
 
 d.addEventListener("click",function(e){
-	$(this).toggleClass("boredr");
 
 	if(tremolo.bypass){
 		wahwah.bypass = 0;
 		}
 	else{
 		wahwah.bypass = 1;
-		
+
 	}
 });
-
-

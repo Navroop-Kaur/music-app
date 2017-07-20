@@ -204,7 +204,7 @@ table.dataTable tbody tr {
     margin-bottom: 1rem;
     font-size: 16px;
 }
-/*css properties for menu icons like next*/        
+/*css properties for menu icons like next*/
 .player-buttons .fa {
     margin-right: 2rem;
 }
@@ -233,4 +233,18 @@ table.dataTable tbody tr {
     color: white;
     display: inline!important;
     box-shadow: blue;
+}
+.active{
+color: grey;
+}
+svg{
+position: absolute;
+top: 249px;
+left: 100px;
+display: none;
+}
+.contain{
+height: 499px;
+width: 100%;
+display: none;
 }
