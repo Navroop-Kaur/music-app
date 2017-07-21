@@ -216,7 +216,7 @@ table.dataTable tbody tr {
 .audio-effects {
     width: 100%;
     height: 100%;
-    display: flex;
+
     flex-direction: column;
     color: white;
     background-color: black;

@@ -441,20 +441,7 @@ Playingnumber=0;
 })
 
 
-$(".fa fa-bars").click(function(){
-$(this).toggleClass("active");
-if(equal==0)
-{
-equal=1;
-$("svg").css("display","inline-block");
-$(".content").css("display","none");
-$(".contain").css("display","inline-block");
-$(".contain").css("background","black");
-}
-else{
-equal=0;
-$("svg").css("display","none");
-$(".content").css("display","inline-block");
-$(".contain").css("display","none");
-}
+$(".fa-bars").click(function(){
+$(".audio-effects").toggleClass("hidden");
+$(".content").toggleClass("hidden");
 })
